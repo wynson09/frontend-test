@@ -8,16 +8,17 @@ import { fetchProducts } from './api/products';
 
 const App: React.FC = () => {
   const {
-    products, filters, page, total,
-    setProducts, setFilters, setPage, setTotal
+    products, filters, page, total, limit, totalCount,
+    setProducts, setFilters, setPage, setTotal, setLimit, setTotalCount
   } = useProductStore();
 
   useEffect(() => {
-    fetchProducts(filters, page).then(({ products, total }) => {
+    fetchProducts(filters, page, limit).then(({ products, total, totalCount }) => {
       setProducts(products);
-      setTotal(Math.ceil(total / 12)); // 12 per page
+      setTotal(total);
+      setTotalCount(totalCount);
     });
-  }, [filters, page, setProducts, setTotal]);
+  }, [filters, page, limit, setProducts, setTotal, setTotalCount]);
 
   return (
     <div className="flex min-h-screen bg-gray-50">
@@ -26,7 +27,25 @@ const App: React.FC = () => {
         onChange={setFilters}
       />
       <main className="flex-1 p-8">
-        <ProductTable products={products} />
+        <div className="flex items-center justify-between mb-4">
+          <div className="text-gray-700 font-medium">
+            Showing {products.length} of {totalCount} results
+          </div>
+          <div>
+            <label htmlFor="limit" className="mr-2 font-medium">Items per page:</label>
+            <select
+              id="limit"
+              className="border rounded p-2"
+              value={limit}
+              onChange={e => setLimit(Number(e.target.value))}
+            >
+              {[2, 5, 10, 12, 15, 20].map(opt => (
+                <option key={opt} value={opt}>{opt}</option>
+              ))}
+            </select>
+          </div>
+        </div>
+        <ProductTable products={products} limit={limit} />
         <Pagination
           page={page}
           totalPages={total}

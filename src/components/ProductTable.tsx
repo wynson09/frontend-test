@@ -3,9 +3,10 @@ import { Product } from '../store/productStore';
 
 interface ProductTableProps {
   products: Product[];
+  limit: number;
 }
 
-const ProductTable: React.FC<ProductTableProps> = ({ products }) => {
+const ProductTable: React.FC<ProductTableProps> = ({ products, limit }) => {
   return (
     <table className="min-w-full bg-white border rounded shadow">
       <thead>
@@ -19,25 +20,25 @@ const ProductTable: React.FC<ProductTableProps> = ({ products }) => {
       </thead>
       <tbody>
         {products.length === 0 ? (
-          <tr>
+          <tr className="h-12">
             <td className="py-2 px-4 border-b text-left" colSpan={5}>No products found.</td>
           </tr>
         ) : (
-          Array.from({ length: 12 }).map((_, i) => (
-            <tr key={i}>
-              <td className="py-2 px-4 border-b text-left">{products[i]?.id ?? ''}</td>
-              <td className="py-2 px-4 border-b text-left">{products[i]?.title ?? ''}</td>
-              <td className="py-2 px-4 border-b text-left">{products[i]?.price ?? ''}</td>
+          Array.from({ length: limit }).map((_, i) => (
+            <tr key={i} className="h-12">
+              <td className="py-2 px-4 border-b text-left">{products[i]?.id ?? '\u00A0'}</td>
+              <td className="py-2 px-4 border-b text-left">{products[i]?.title ?? '\u00A0'}</td>
+              <td className="py-2 px-4 border-b text-left">{products[i]?.price ?? '\u00A0'}</td>
               <td className="py-2 px-4 border-b text-left">
-                {products[i]?.subscription === true
-                  ? 'Yes'
-                  : products[i]?.subscription === false
-                  ? 'No'
-                  : ''}
+                {products[i]
+                  ? (products[i]?.subscription === true
+                    ? 'Yes'
+                    : products[i]?.subscription === false
+                    ? 'No'
+                    : '')
+                  : '\u00A0'}
               </td>
-              <td className="py-2 px-4 border-b text-left">
-                {products[i]?.tags?.join(', ') ?? ''}
-              </td>
+              <td className="py-2 px-4 border-b text-left">{products[i]?.tags?.join(', ') ?? '\u00A0'}</td>
             </tr>
           ))
         )}

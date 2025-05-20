@@ -20,10 +20,14 @@ interface ProductStore {
   filters: Filters;
   page: number;
   total: number;
+  limit: number;
+  totalCount: number;
   setProducts: (products: Product[]) => void;
   setFilters: (filters: Partial<Filters>) => void;
   setPage: (page: number) => void;
   setTotal: (total: number) => void;
+  setLimit: (limit: number) => void;
+  setTotalCount: (count: number) => void;
 }
 
 export const useProductStore = create<ProductStore>((set) => ({
@@ -31,8 +35,12 @@ export const useProductStore = create<ProductStore>((set) => ({
   filters: { tag: '', price: null, subscription: null },
   page: 1,
   total: 0,
+  limit: 12,
+  totalCount: 0,
   setProducts: (products) => set({ products }),
   setFilters: (filters) => set((state) => ({ filters: { ...state.filters, ...filters }, page: 1 })),
   setPage: (page) => set({ page }),
   setTotal: (total) => set({ total }),
+  setLimit: (limit) => set({ limit, page: 1 }),
+  setTotalCount: (count) => set({ totalCount: count }),
 })); 
