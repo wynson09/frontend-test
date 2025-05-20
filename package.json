@@ -11,12 +11,14 @@
     "json-server": "^0.17.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-router-dom": "^7.6.0",
     "react-scripts": "5.0.1",
     "test-frontend-app": "file:",
     "web-vitals": "^2.1.4",
     "zustand": "^5.0.4"
   },
   "devDependencies": {
+    "@types/react-router-dom": "^5.3.3",
     "autoprefixer": "^10.4.14",
     "concurrently": "^7.6.0",
     "postcss": "^8.4.31",
