@@ -22,7 +22,9 @@ const ProductTable: React.FC<ProductTableProps> = ({ products, limit }) => {
       <tbody>
         {products.length === 0 ? (
           <tr className="h-12">
-            <td className="py-2 px-4 border-b text-left w-1/6" colSpan={6}>No products found.</td>
+            <td className="py-2 px-4 border-b text-center w-1/6" colSpan={6}>
+              <span className="block w-full text-center">No products found.</span>
+            </td>
           </tr>
         ) : (
           Array.from({ length: limit }).map((_, i) => (
