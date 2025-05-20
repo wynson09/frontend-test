@@ -8,28 +8,30 @@ interface ProductTableProps {
 
 const ProductTable: React.FC<ProductTableProps> = ({ products, limit }) => {
   return (
-    <table className="min-w-full bg-white border rounded shadow">
-      <thead>
+    <table className="min-w-full bg-white border rounded shadow table-fixed">
+      <thead className="bg-[#3A6B78]">
         <tr>
-          <th className="py-2 px-4 border-b text-left">ID</th>
-          <th className="py-2 px-4 border-b text-left">Name</th>
-          <th className="py-2 px-4 border-b text-left">Price</th>
-          <th className="py-2 px-4 border-b text-left">Subscription</th>
-          <th className="py-2 px-4 border-b text-left">Tags</th>
+          <th className="py-4 px-4 border-b text-left text-lg font-bold text-light tracking-wide w-1/6">ID</th>
+          <th className="py-4 px-4 border-b text-left text-lg font-bold text-light tracking-wide w-1/6">Title</th>
+          <th className="py-4 px-4 border-b text-left text-lg font-bold text-light tracking-wide w-1/6">Tags</th>
+          <th className="py-4 px-4 border-b text-right text-lg font-bold text-light tracking-wide w-1/6">Price</th>
+          <th className="py-4 px-4 border-b text-center text-lg font-bold text-light tracking-wide w-1/6">Subscription</th>
+          <th className="py-4 px-4 border-b text-center text-lg font-bold text-light tracking-wide w-1/6">Subscription Discount</th>
         </tr>
       </thead>
       <tbody>
         {products.length === 0 ? (
           <tr className="h-12">
-            <td className="py-2 px-4 border-b text-left" colSpan={5}>No products found.</td>
+            <td className="py-2 px-4 border-b text-left w-1/6" colSpan={6}>No products found.</td>
           </tr>
         ) : (
           Array.from({ length: limit }).map((_, i) => (
-            <tr key={i} className="h-12">
-              <td className="py-2 px-4 border-b text-left">{products[i]?.id ?? '\u00A0'}</td>
-              <td className="py-2 px-4 border-b text-left">{products[i]?.title ?? '\u00A0'}</td>
-              <td className="py-2 px-4 border-b text-left">{products[i]?.price ?? '\u00A0'}</td>
-              <td className="py-2 px-4 border-b text-left">
+            <tr key={i} className={`h-12 ${i % 2 === 1 ? 'bg-light' : ''} hover:bg-accent/10`}>
+              <td className="py-2 px-4 border-b text-left w-1/6">{products[i]?.id ?? '\u00A0'}</td>
+              <td className="py-2 px-4 border-b text-left w-1/6">{products[i]?.title ?? '\u00A0'}</td>
+              <td className="py-2 px-4 border-b text-left w-1/6">{products[i]?.tags?.join(', ') ?? '\u00A0'}</td>
+              <td className="py-2 px-4 border-b text-right w-1/6">{products[i]?.price ?? '\u00A0'}</td>
+              <td className="py-2 px-4 border-b text-center w-1/6">
                 {products[i]
                   ? (products[i]?.subscription === true
                     ? 'Yes'
@@ -38,7 +40,15 @@ const ProductTable: React.FC<ProductTableProps> = ({ products, limit }) => {
                     : '')
                   : '\u00A0'}
               </td>
-              <td className="py-2 px-4 border-b text-left">{products[i]?.tags?.join(', ') ?? '\u00A0'}</td>
+              <td className="py-2 px-4 border-b text-center w-1/6">
+                {products[i]
+                  ? products[i].subscription
+                    ? (products[i].subscription_discount != null
+                        ? `${products[i].subscription_discount}%`
+                        : '-')
+                    : '-'
+                  : '\u00A0'}
+              </td>
             </tr>
           ))
         )}

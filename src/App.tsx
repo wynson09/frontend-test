@@ -27,30 +27,32 @@ const App: React.FC = () => {
         onChange={setFilters}
       />
       <main className="flex-1 p-8">
-        <div className="flex items-center justify-between mb-4">
-          <div className="text-gray-700 font-medium">
-            Showing {products.length} of {totalCount} results
+        <div className="px-20">
+          <div className="flex items-center justify-between mb-4">
+            <div className="text-gray-700 font-medium">
+              Showing {products.length} of {totalCount} results
+            </div>
+            <div>
+              <label htmlFor="limit" className="mr-2 font-medium">Items per page:</label>
+              <select
+                id="limit"
+                className="border rounded p-2"
+                value={limit}
+                onChange={e => setLimit(Number(e.target.value))}
+              >
+                {[2, 5, 10, 12, 15, 20].map(opt => (
+                  <option key={opt} value={opt}>{opt}</option>
+                ))}
+              </select>
+            </div>
           </div>
-          <div>
-            <label htmlFor="limit" className="mr-2 font-medium">Items per page:</label>
-            <select
-              id="limit"
-              className="border rounded p-2"
-              value={limit}
-              onChange={e => setLimit(Number(e.target.value))}
-            >
-              {[2, 5, 10, 12, 15, 20].map(opt => (
-                <option key={opt} value={opt}>{opt}</option>
-              ))}
-            </select>
-          </div>
+          <ProductTable products={products} limit={limit} />
+          <Pagination
+            page={page}
+            totalPages={total}
+            onPageChange={setPage}
+          />
         </div>
-        <ProductTable products={products} limit={limit} />
-        <Pagination
-          page={page}
-          totalPages={total}
-          onPageChange={setPage}
-        />
       </main>
     </div>
   );
