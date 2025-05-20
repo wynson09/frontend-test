@@ -5,14 +5,32 @@ export const fetchProducts = async (
   page: number,
   limit: number
 ): Promise<{ products: Product[]; total: number; totalCount: number }> => {
-  let url = `http://localhost:3010/products?_page=${page}&_limit=${limit}`;
-  if (filters.tag) url += `&tags_like=${encodeURIComponent(filters.tag)}`;
-  if (filters.price !== null) url += `&price=${filters.price}`;
-  if (filters.subscription)
-    url += `&subscription=${filters.subscription === 'Yes' ? 'true' : 'false'}`;
-  const res = await fetch(url);
-  const data = await res.json();
-  const totalCount = Number(res.headers.get('X-Total-Count')) || data.length;
+  // Always fetch from the static mock data file
+  const res = await fetch('/mock/products.json');
+  const json = await res.json();
+  let products = json.products as Product[];
+
+  // Apply filters
+  if (filters.tag) {
+    products = products.filter(p =>
+      p.tags.some(tag => tag.toLowerCase().includes(filters.tag.toLowerCase()))
+    );
+  }
+  if (filters.price !== null) {
+    products = products.filter(p => Number(p.price) === Number(filters.price));
+  }
+  if (filters.subscription) {
+    products = products.filter(
+      p =>
+        (filters.subscription === 'Yes' && p.subscription === true) ||
+        (filters.subscription === 'No' && p.subscription === false)
+    );
+  }
+
+  // Pagination
+  const totalCount = products.length;
   const total = Math.ceil(totalCount / limit);
-  return { products: data, total, totalCount };
+  const paginated = products.slice((page - 1) * limit, page * limit);
+
+  return { products: paginated, total, totalCount };
 }; 
