@@ -12,7 +12,10 @@ Solution
 **Approach:**
 I built this project using React and TypeScript to ensure type safety and maintainability. For state management, I chose Zustand because it's lightweight and easy to scale as the app grows. Tailwind CSS helped me quickly create a modern, responsive UI.
 
-The app fetches products from the API and supports both pagination and filtering (by tag, price, and subscription). I made sure the pagination is dynamic, so users can choose how many items they want to see per page. My goal was to keep the interface clean, accessible, and easy to use.
+**Update:**
+The app now uses URL parameters to manage all filter and pagination state. This makes the state shareable, bookmarkable, and browser navigation-friendly. All filter and pagination changes update the URL, and the app reads from the URL to initialize state. This approach improves UX, debuggability, and consistency between development and production.
+
+The app fetches products from the API (or static JSON) and supports both pagination and filtering (by tag, price, and subscription). Pagination is dynamic, so users can choose how many items they want to see per page. The interface is clean, accessible, and easy to use.
 
 **Key Features:**
 - A product table that shows ID, Title, Price, Subscription, Subscription Discount and Tags.
@@ -21,18 +24,29 @@ The app fetches products from the API and supports both pagination and filtering
 - Consistent row heights, even when there are fewer products than the page size.
 - The total number of results is always visible above the table.
 - All API calls use the correct query parameters and handle the total count for pagination.
+- All filter and pagination state is reflected in the URL for shareability and browser navigation.
+
+**Recent Improvements & Additional Features:**
+- **URL Parameter State:** All filters and pagination are managed via URL parameters, making the app state shareable and bookmarkable.
+- **Clear Filters Button:** Added a button to clear all filters at once, preserving the current page size if set.
+- **Input UX Fixes:** Fixed issues where tag and price filters would "stick" to the first character or not clear properly, by syncing input values and URL params robustly.
+- **Default Page Size:** The app defaults to 12 items per page if no limit is set in the URL, but preserves the user's chosen limit when clearing filters.
+- **Consistent Filtering:** All filter changes reset the page to 1 for a better user experience.
+- **Robust Edge Case Handling:** Empty filters are removed from the URL, and the UI always reflects the current filter state.
 
 **Extra Features Added (Beyond Requirements):**
 - Users can select how many products to show per page (2, 5, 10, 12, 15, or 20).
 - The table always looks tidy, even if there are empty rows.
 - The total results count is displayed above the table (e.g., "Showing 5 of 12 results").
 - Pagination controls are enhanced with first/last page buttons and a window of visible page numbers for a better experience.
+- **Clear Filters** button for convenience.
 
 **Edge Cases Handled:**
 - If no products are found, the table clearly says so and keeps its structure.
 - Changing any filter resets the pagination to page 1, so users don't get lost.
 - Pagination controls are hidden if there's only one page of results.
 - Empty table rows are rendered with consistent height for a polished look.
+- Filter inputs and URL params are always in sync, so clearing or changing filters works as expected.
 
 **Test Cases:**
 1. Filter by Tag
@@ -71,9 +85,10 @@ The app fetches products from the API and supports both pagination and filtering
   For a really smooth and flexible sorting experience, I'd suggest using something like [tanstack/table](https://tanstack.com/table) (formerly react-table)—it makes adding sorting and other table features much easier.
 - Show product images and make product names clickable for more detail.
 - Add a "Clear Filters" button for convenience.
+- Consider using a searchable dropdown for tag filtering if the tag set grows.
 
 **Time Management:**
-I estimated 8 - 12 hours for this project and finished in about 6 hours, including coding, testing, and some extra polish.
+I estimated 8 - 12 hours for this project and finished in about 8 hours, including coding, testing, and some extra polish.
 
 **Notes:**
 - All dependencies are listed in package.json.
