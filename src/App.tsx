@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import FilterSidebar from './components/FilterSidebar';
 import ProductTable from './components/ProductTable';
 import Pagination from './components/Pagination';
-import { useProductStore, Filters, Product } from './store/productStore';
+import { useProductStore } from './store/productStore';
 import { fetchProducts } from './api/products';
 
 const App: React.FC = () => {
@@ -27,7 +27,7 @@ const App: React.FC = () => {
         onChange={setFilters}
       />
       <main className="flex-1 p-8">
-        <div className="px-20">
+        <div className="px-8 lg:px-20">
           <div className="flex items-center justify-between mb-4">
             <div className="text-gray-700 font-medium">
               Showing {products.length} of {totalCount} results

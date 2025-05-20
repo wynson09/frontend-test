@@ -7,7 +7,6 @@ export interface Product {
   subscription: boolean;
   tags: string[];
   subscription_discount?: number | string;
-  // note: add other fields as per your API if needed
 }
 
 export interface Filters {
