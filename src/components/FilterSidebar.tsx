@@ -8,32 +8,32 @@ interface FilterSidebarProps {
 
 const FilterSidebar: React.FC<FilterSidebarProps> = ({ filters, onChange }) => {
   return (
-    <aside className="w-64 p-4 bg-gray-100 rounded">
-      <h2 className="text-lg font-bold mb-4">Filters</h2>
-      <div className="mb-4">
-        <label className="block mb-1 font-medium">Tag</label>
+    <aside className="w-80 min-h-screen p-6 bg-sidebar text-light border-r border-light flex flex-col rounded-tr-2xl rounded-br-2xl shadow-lg">
+      <h2 className="text-xl font-bold mb-6 tracking-wide text-light">Filters</h2>
+      <div className="mb-6">
+        <label className="block mb-2 font-medium text-light/80">Tag</label>
         <input
           type="text"
-          className="w-full border rounded p-2"
+          className="w-full border border-light rounded-md p-3 text-sidebar bg-light focus:border-accent focus:ring-2 focus:ring-accent/20"
           value={filters.tag}
           onChange={e => onChange({ tag: e.target.value })}
           placeholder="Search by tag..."
         />
       </div>
-      <div className="mb-4">
-        <label className="block mb-1 font-medium">Price</label>
+      <div className="mb-6">
+        <label className="block mb-2 font-medium text-light/80">Price</label>
         <input
           type="number"
-          className="w-full border rounded p-2"
+          className="w-full border border-light rounded-md p-3 text-sidebar bg-light focus:border-accent focus:ring-2 focus:ring-accent/20"
           value={filters.price ?? ''}
           onChange={e => onChange({ price: e.target.value ? Number(e.target.value) : null })}
           placeholder="Filter by price..."
         />
       </div>
-      <div className="mb-4">
-        <label className="block mb-1 font-medium">Subscription</label>
+      <div className="mb-6">
+        <label className="block mb-2 font-medium text-light/80">Subscription</label>
         <select
-          className="w-full border rounded p-2"
+          className="w-full border border-light rounded-md p-3 text-sidebar bg-light focus:border-accent focus:ring-2 focus:ring-accent/20"
           value={filters.subscription ?? ''}
           onChange={e => onChange({ subscription: e.target.value || null })}
         >
