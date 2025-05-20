@@ -80,6 +80,7 @@ I estimated 8 - 12 hours for this project and finished in about 6 hours, includi
 - The code is modular and should be easy to extend or refactor.
 - I aimed to follow best practices for accessibility and user experience.
 - I intended to display product images, but due to issues with the image src_url in the mock data, I added the subscription discount column instead.
+- Since there was no product with price 30 in the mock data, I assumed it is valid to modify the mock data (as allowed by instruction 5, which states can add, change, or modify any files in the project) and modify a product with price from 29.95 to 30 so the test case would match the requirements.
 - When I tried to fork the repository, I got an error: "You do not have sufficient permissions to create repositories in this project/workspace." Instead, I cloned the repo and uploaded it to my personal GitHub repository.
 
 If you have any questions or want to discuss my approach, I'm happy to chat!
