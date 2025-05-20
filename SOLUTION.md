@@ -45,11 +45,10 @@ The app fetches products from the API and supports both pagination and filtering
 2. Filter by Price
    ```gherkin
    Given I am on the product collection page
-   When I enter "42" in the price filter
-   Then I should see only products with a price of 42
+   When I enter "30" in the price filter
+   Then I should see only products with a price of 30
    And the table should show the correct number of products
    ```
-*Note: There are no products with price 30 in the mock data, so the test case uses 42 instead to accurately reflect the available data.*
 3. Combined Filters (Subscription + Tag)
    ```gherkin
    Given I am on the product collection page
@@ -80,7 +79,6 @@ I estimated 8 - 12 hours for this project and finished in about 6 hours, includi
 - All dependencies are listed in package.json.
 - The code is modular and should be easy to extend or refactor.
 - I aimed to follow best practices for accessibility and user experience.
-- The test case for filtering by price was updated from 30 to 42, since there is no product with price 30 in the mock data.
 - I intended to display product images, but due to issues with the image src_url in the mock data, I added the subscription discount column instead.
 - When I tried to fork the repository, I got an error: "You do not have sufficient permissions to create repositories in this project/workspace." Instead, I cloned the repo and uploaded it to my personal GitHub repository.
 
